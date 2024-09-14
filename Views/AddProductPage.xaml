@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLoginApp.Views.AddProductPage"
+             Title="Product Entry"
+             BackgroundColor="#E8F8F5">
+
+    <StackLayout Spacing="4" Padding="16" Margin="8">
+        
+        <VerticalStackLayout IsVisible="False">
+            <Label Text="ID" FontSize="Medium" IsEnabled="False" />
+            <Entry Text="{Binding ProductInfo.ProductId,Mode=TwoWay}" Keyboard="Numeric" FontSize="Medium" IsEnabled="False" />
+            <BoxView HeightRequest="0.5" Color="Gray" />
+        </VerticalStackLayout>
+        
+        <VerticalStackLayout>
+            <Label Text="Product Name" FontSize="Medium" />
+            <Entry Text="{Binding ProductInfo.ProductName,Mode=TwoWay}" FontSize="Medium" />
+            <BoxView HeightRequest="0.5" Color="Gray" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+            <Label Text="Product Qty" FontSize="Medium" />
+            <Entry Text="{Binding ProductInfo.ProductQty,Mode=TwoWay}" Keyboard="Numeric" FontSize="Medium" />
+            <BoxView HeightRequest="0.5" Color="Gray" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+            <Label Text="Product Price" FontSize="Medium" />
+            <Entry Text="{Binding ProductInfo.ProductPrice,Mode=TwoWay}" Keyboard="Numeric" FontSize="Medium" />
+            <BoxView HeightRequest="0.5" Color="Gray" />
+        </VerticalStackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Save" Command="{Binding SaveProductCommand}" HorizontalOptions="FillAndExpand" />
+            <Button Text="Cancel" BackgroundColor="#DF5252" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand" />
+        </StackLayout>
+
+    </StackLayout>
+</ContentPage>

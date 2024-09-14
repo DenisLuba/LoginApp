@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyLoginApp.Views.ProductPage"
+             xmlns:models="clr-namespace:MyLoginApp.Models"
+             xmlns:view_models="clr-namespace:MyLoginApp.ViewModels"
+             Title="Product Page"
+             BackgroundColor="#E8F8F5">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add"
+                 Command="{Binding AddProductCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <RefreshView x:DataType="view_models:ProductPageViewModel" 
+                     Command="{Binding LoadProductCommand}"
+                     IsRefreshing="{Binding IsBusy}">
+            <CollectionView ItemsSource="{Binding productList}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ProductInfo">
+                        <StackLayout Padding="2">
+                            <SwipeView>
+                                
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Delete" 
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type view_models:ProductPageViewModel}},
+                                                       Path=ProductTappedDeleteCommand}" CommandParameter="{Binding .}" BackgroundColor="#DF5252" />
+                                        <SwipeItem IsDestructive="True" Text="Close" BackgroundColor="Green" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+
+                                <Grid Padding="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="140" />
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="70" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Column="0" Text="{Binding ProductName}" FontAttributes="Bold" FontSize="Large" />
+                                    <Label Grid.Column="1" Text="{Binding ProductQty}" FontSize="Large" />
+                                    <Label Grid.Column="2" Text="{Binding ProductPrice}" FontSize="Large" />
+
+                                    <Image Source="edit.png" Grid.Column="3" WidthRequest="30" HeightRequest="30" HorizontalOptions="End">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer NumberOfTapsRequired="1" 
+                                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type view_models:ProductPageViewModel}},
+                                                                      Path=ProductTappedEditCommand}"
+                                                                  CommandParameter="{Binding .}">
+                                            </TapGestureRecognizer>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                
+                                </Grid>
+
+                            </SwipeView>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </StackLayout>
+</ContentPage>
